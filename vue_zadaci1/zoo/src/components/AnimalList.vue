@@ -1,13 +1,12 @@
 <template>
   <div class="hello">
-    <h1> {{ msg }}</h1>
 
-    <form v-on:submit.prevent="addAnimal()">
-      <input v-model="ime" type="text" placeholder="Naziv">
-      <input v-model="vrsta" type="text" placeholder="Vrsta">
-      <input v-model="rodjendan" type="text" placeholder="Godina">
+    <form v-on:submit.prevent="addAnimal">
+      <input v-model="newAnimalIme" type="text" placeholder="Naziv">
+      <input v-model="newAnimalVrsta" type="text" placeholder="Vrsta">
+      <input v-model="newAnimalRodjendan" type="date" placeholder="Rodjendan">
       <select v-model="selected">
-        <option v-for="item in sektor" v-bind:key="item"> {{ item }} </option>
+        <option v-for="item in sektor" :key="item"> {{ item }} </option>
       </select>
 
       <button type="submit">Dodaj</button>
@@ -16,9 +15,9 @@
     <ul>
       <li v-for="(item, index) in animalList" :key="item.ime">  
         <p>
-          {{ item.ime }} - {{ item.vrsta }} - {{ item.sektor ? item.sektor : 'Nepoznat' }} - {{ item.rodjendan ? item.rodjendan : "Nepoznat" }}
+          {{ item.ime }} - {{ item.vrsta }} - {{ item.sektor ? item.sektor : 'Nepoznat' }} - {{ item.rodjendan ? item.rodjendan.toLocaleDateString() : "Nepoznat" }}
         </p>
-        <a @click="remove(index)">Obrisi</a>
+        <button @click="remove(index)">Obrisi</button>
         <button @click="moveToTop(index)" v-if="index !== 0">Pomeri na vrh</button>
         <hr>
       </li>
@@ -27,9 +26,9 @@
     <ul>
       <li v-for="item in sektor" :key="item">
           {{ item }}
-        <a @click="alertAnimals(item)">
+        <button @click="alertAnimals(item)">
           Prikazi listu zivotinja
-        </a>
+        </button>
       </li> 
     </ul>
 
@@ -42,24 +41,23 @@ export default {
   name: 'AnimalList',
   data() {
     return {
-      msg: "Animal List",
-      selected: "Sektor",
-      ime: '',
-      vrsta: '',
-      rodjendan: '',
-      sektor: ["ptica", "zmija", "nesto"],
+      selected: 'Sektor',
+      newAnimalIme: '',
+      newAnimalVrsta: '',
+      newAnimalRodjendan: '',
+      sektor: ['ptica', 'zmija', 'nesto'],
       animalList: [
         {
           ime: 'Zivotinja 1',
           vrsta: 'Vrsta 1',
           sektor: 'ptica',
-          rodjendan: new Date().getYear() + 1900
+          rodjendan: new Date()
         },
         {
           ime: 'Zivotinja 2',
           vrsta: 'Vrsta 2',
           sektor: 'zmija',
-          rodjendan: new Date().getYear() + 1900
+          rodjendan: new Date()
         },
         {
           ime: 'Zivotinja 3',
@@ -77,7 +75,7 @@ export default {
           ime: 'Zivotinja 5',
           vrsta: 'Vrsta 5',
           sektor: 'nesto',
-          rodjendan: new Date().getYear() + 1900
+          rodjendan: new Date()
         }
       ]
     }
@@ -85,37 +83,36 @@ export default {
   methods: {
 
     remove(index) {
-      this.$delete(this.animalList, index);
+      this.animalList.splice(index, 1);
     },
 
     moveToTop(index) {
-      let tmp = this.animalList.splice(0, 1, this.animalList[index]);
-      this.animalList[index] = tmp[0];
+      let clicked = this.animalList.splice(index - 1, 1, this.animalList.shift())
+      this.animalList.unshift(clicked[0]);
     },
 
     addAnimal() {
       let newAnimal = {
-        ime: this.ime,
-        vrsta: this.vrsta,
-        rodjendan: this.rodjendan,
+        ime: this.newAnimalIme,
+        vrsta: this.newAnimalVrsta,
+        rodjendan: this.newAnimalRodjendan,
         sektor: this.selected
       }
       
       this.animalList.push(newAnimal);
-      this.ime = '';
-      this.vrsta = '';
-      this.rodjendan = '';
+
+      this.newAnimalIme = '';
+      this.newAnimalVrsta = '';
+      this.newAnimalRodjendan = '';
     },
 
     alertAnimals(clickedSektor) {
       let animals = this.animalList.filter(({ sektor }) => sektor === clickedSektor);
-      let animalsString = '';
-
-      animals.forEach(element => {
-        animalsString += `${element.ime} ${element.vrsta} ${element.sektor} ${element.rodjendan ? element.rodjendan : "Nepoznat"} \n`;
-      })
-
-      alert(animalsString);
+      
+      alert(animals.reduce((acc, element, i) => {
+        acc += `${i+1}: ${element.ime} - ${element.vrsta} \n`;
+        return acc;
+      }, ''))
     }
   }
 }
