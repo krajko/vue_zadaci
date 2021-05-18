@@ -50,13 +50,13 @@
         </h3>
           
         <ul>
-          <li v-for="animal in animalListBySector = getAnimalsBySector(item)" :key="animal.ime">
+          <li v-for="animal in getAnimalsBySector(item)" :key="animal.ime">
             <p>
               {{ animal.ime }} - {{ animal.vrsta}} - {{ animal.rodjendan ? animal.rodjendan.toLocaleDateString() : "Nepoznat"}}
             </p>
           </li>
 
-          <li v-if="animalListBySector.length === 0">
+          <li v-if="getAnimalsBySector(item).length === 0">
             Za ovaj sektor trenutno nema zivotinja
           </li>
         </ul>
@@ -73,8 +73,7 @@ export default {
   name: 'AnimalList',
   data() {
     return {
-      animalListBySector: [],
-      selected: 'Sektor',
+      selected: 'ptica',
       newAnimalIme: '',
       newAnimalVrsta: '',
       newAnimalRodjendan: '',
