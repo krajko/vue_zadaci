@@ -57,10 +57,14 @@
         </h3>
           
         <ul>
-          <li v-for="animal in animalList" :key="animal.ime">
-            <p v-if="animal.sektor === item">
+          <li v-for="animal in getAnimalsBySector(item)" :key="animal.ime">
+            <p>
               {{ animal.ime }} - {{ animal.vrsta}} - {{ animal.rodjendan ? animal.rodjendan.toLocaleDateString() : "Nepoznat"}}
             </p>
+          </li>
+          
+          <li v-if="getAnimalsBySector(item).length === 0">
+            Za ovaj sektor trenutno nema zivotinja
           </li>
         </ul>
         
@@ -91,7 +95,6 @@ export default {
         {
           ime: 'Zivotinja 2',
           vrsta: 'Vrsta 2',
-          sektor: 'zmija',
           rodjendan: new Date()
         },
         {
@@ -149,6 +152,10 @@ export default {
         acc += `${i+1}: ${element.ime} - ${element.vrsta} \n`;
         return acc;
       }, ''))
+    },
+
+    getAnimalsBySector(sector) {
+      return this.animalList.filter(({ sektor }) => sektor  === sector);
     }
   }
 }
