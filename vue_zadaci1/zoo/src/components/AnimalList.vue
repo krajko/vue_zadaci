@@ -12,19 +12,15 @@
       <button type="submit">Dodaj</button>
     </form>
 
-    <ul>
       <table>
-        <li>
           <tr>
             <th>Ime</th>
             <th>Vrsta</th>
             <th>Sektor</th>
             <th>Rodjendan</th>
           </tr>
-        </li>
-        <li v-for="(item, index) in animalList" :key="item.ime">  
           
-          <tr>
+          <tr v-for="(item, index) in animalList" :key="item.ime">
             <td>{{ item.ime }}</td>
             <td>{{ item.vrsta }}</td>
             <td>{{ item.sektor ? item.sektor : 'Nepoznat' }}</td>
@@ -36,10 +32,7 @@
               <button @click="moveToTop(index)" v-if="index !== 0">Pomeri na vrh</button>
             </td>
           </tr>
-    
-        </li>
       </table>
-    </ul>
 
     <ul>
       <li v-for="item in sektor" :key="item">
@@ -57,13 +50,13 @@
         </h3>
           
         <ul>
-          <li v-for="animal in getAnimalsBySector(item)" :key="animal.ime">
+          <li v-for="animal in animalListBySector = getAnimalsBySector(item)" :key="animal.ime">
             <p>
               {{ animal.ime }} - {{ animal.vrsta}} - {{ animal.rodjendan ? animal.rodjendan.toLocaleDateString() : "Nepoznat"}}
             </p>
           </li>
-          
-          <li v-if="getAnimalsBySector(item).length === 0">
+
+          <li v-if="animalListBySector.length === 0">
             Za ovaj sektor trenutno nema zivotinja
           </li>
         </ul>
@@ -80,6 +73,7 @@ export default {
   name: 'AnimalList',
   data() {
     return {
+      animalListBySector: [],
       selected: 'Sektor',
       newAnimalIme: '',
       newAnimalVrsta: '',
