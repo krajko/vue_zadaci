@@ -23,6 +23,7 @@
           </tr>
         </li>
         <li v-for="(item, index) in animalList" :key="item.ime">  
+          
           <tr>
             <td>{{ item.ime }}</td>
             <td>{{ item.vrsta }}</td>
@@ -35,8 +36,7 @@
               <button @click="moveToTop(index)" v-if="index !== 0">Pomeri na vrh</button>
             </td>
           </tr>
-          
-          <hr>
+    
         </li>
       </table>
     </ul>
@@ -161,14 +161,6 @@ export default {
     text-align: left;
     margin: auto;
     border: 1px solid #2c3e5033;
-  }
-
-  hr {
-    height: 1px;
-    width: 50vw;
-    border: none;
-    border-bottom: ; 
-    margin-top: 0;
   }
 
   a {
