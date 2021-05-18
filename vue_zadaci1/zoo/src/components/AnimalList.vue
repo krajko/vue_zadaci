@@ -13,14 +13,32 @@
     </form>
 
     <ul>
-      <li v-for="(item, index) in animalList" :key="item.ime">  
-        <p>
-          {{ item.ime }} - {{ item.vrsta }} - {{ item.sektor ? item.sektor : 'Nepoznat' }} - {{ item.rodjendan ? item.rodjendan.toLocaleDateString() : "Nepoznat" }}
-        </p>
-        <button @click="remove(index)">Obrisi</button>
-        <button @click="moveToTop(index)" v-if="index !== 0">Pomeri na vrh</button>
-        <hr>
-      </li>
+      <table>
+        <li>
+          <tr>
+            <th>Ime</th>
+            <th>Vrsta</th>
+            <th>Sektor</th>
+            <th>Rodjendan</th>
+          </tr>
+        </li>
+        <li v-for="(item, index) in animalList" :key="item.ime">  
+          <tr>
+            <td>{{ item.ime }}</td>
+            <td>{{ item.vrsta }}</td>
+            <td>{{ item.sektor ? item.sektor : 'Nepoznat' }}</td>
+            <td>{{ item.rodjendan ? item.rodjendan.toLocaleDateString() : "Nepoznat" }}</td>
+            <td>
+              <button @click="remove(index)">Obrisi</button>
+            </td>
+            <td>
+              <button @click="moveToTop(index)" v-if="index !== 0">Pomeri na vrh</button>
+            </td>
+          </tr>
+          
+          <hr>
+        </li>
+      </table>
     </ul>
 
     <ul>
@@ -89,7 +107,6 @@ export default {
     moveToTop(index) {
       let removed = this.animalList[index];
       this.remove(index);
-      this.animalList.splice(index - 1, 0, this.animalList.shift());
       this.animalList.unshift(removed);
     },
 
@@ -140,11 +157,17 @@ export default {
     width: 50vw;
   }
 
+  table {
+    text-align: left;
+    margin: auto;
+    border: 1px solid #2c3e5033;
+  }
+
   hr {
     height: 1px;
     width: 50vw;
     border: none;
-    border-bottom: 1px solid #2c3e5033; 
+    border-bottom: ; 
     margin-top: 0;
   }
 
