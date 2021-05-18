@@ -50,6 +50,23 @@
       </li> 
     </ul>
 
+    <ul>
+      <li v-for="item in sektor" :key="item">
+        <h3>
+          [sektor {{ item }}]
+        </h3>
+          
+        <ul>
+          <li v-for="animal in animalList" :key="animal.ime">
+            <p v-if="animal.sektor === item">
+              {{ animal.ime }} - {{ animal.vrsta}} - {{ animal.rodjendan ? animal.rodjendan.toLocaleDateString() : "Nepoznat"}}
+            </p>
+          </li>
+        </ul>
+        
+      </li>
+    </ul>
+
   </div>
 </template>
 
@@ -142,7 +159,7 @@ export default {
 <style scoped>
 
   h3 {
-    margin: 40px 0 0;
+    margin: 20px 0 0;
   }
 
   ul {
