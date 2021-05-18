@@ -87,8 +87,10 @@ export default {
     },
 
     moveToTop(index) {
-      let clicked = this.animalList.splice(index - 1, 1, this.animalList.shift())
-      this.animalList.unshift(clicked[0]);
+      let removed = this.animalList[index];
+      this.remove(index);
+      this.animalList.splice(index - 1, 0, this.animalList.shift());
+      this.animalList.unshift(removed);
     },
 
     addAnimal() {
