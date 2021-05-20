@@ -1,22 +1,37 @@
 <template>
-    <div class="container">
-        <ul class="list-unstyled">
-            <li v-for="(customer, index) in customers" :key="customer.id" class="my-3">
-                <div class="d-flex justify-content-between align-items-baseline mx-auto my-0 py-0" style="width: 25vw">
-                    <div class="flex-col text-start">                    
-                        <p class="my-0 py-0"><strong>
+    <div class="d-flex flex-row justify-content-center">
 
-                            {{ customer.firstName }} {{ customer.lastName }}
-                        
-                        </strong></p> 
+        <div class="mx-4 mt-3">
+            <div class="text-start">
+                <h5 class="mb-1"><strong>Add a customer</strong></h5>
+            </div>
+            <hr class="mt-0">
+            <form v-on:submit.prevent="addCustomer">
+                <input v-model="newCustomer.firstName" class="form-control form-control-sm" type="text" placeholder="First name">
+                <input v-model="newCustomer.lastName" class="form-control form-control-sm" type="text" placeholder="Last name">
+                <input v-model="newCustomer.email" class="form-control form-control-sm" type="email" placeholder="Email">
+
+                <button class="btn btn-success mt-2" type="submit">Add</button>
+            </form>
+        </div>
+
+        <div class="mx-4">
+            <ul class="list-unstyled">
+                <li v-for="(customer, index) in customers" :key="customer.id" class="my-4">
+                    <div class="d-flex mx-auto my-0 py-0" style="width: 25vw">
+                        <div class="col text-start">                
+                                <p class="my-0 py-0"> {{ customer.firstName }} {{ customer.lastName }} </p> 
+                                <p class="my-0 py-0 text-muted" style="font-size: .9rem;"> {{ customer.email }} </p>
+                        </div>
+                        <div class="col text-end d-flex justify-content-end align-items-end">
+                            <button @click="remove(index)" class="btn btn-sm">Remove</button>
+                        </div>
                     </div>
-                    <div class="col text-end">
-                        <button @click="remove(index)" class="btn btn-sm my-0">Remove</button>
-                    </div>
-                </div>
-                    <hr class="mx-auto my-0 py-0" style="width: 25vw">
-            </li>
-        </ul>
+                        <hr class="mx-auto my-0 py-0" style="width: 25vw">
+                </li>
+            </ul>
+        </div>
+
     </div>
 </template>
 
@@ -26,6 +41,15 @@ export default {
     name: 'AppCustomers',
     data() {
         return {
+
+            newCustomer: {
+                id: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                products: []
+            },
+
             customers: [
                 {
                     id: 1,
@@ -61,6 +85,29 @@ export default {
     methods: {
         remove(index) {
             this.customers.splice(index, 1);
+        },
+
+        addCustomer() {
+            this.newCustomer.id = this.customers.reduce((acc, curr) => {
+                if (curr.id > acc) {
+                    acc = curr.id;
+                }
+                acc++;
+
+                return acc;
+            }, this.customers[0].id) 
+
+            let newCustomer = {...this.newCustomer};
+
+            this.customers.push(newCustomer);
+
+            this.newCustomer = {
+                id: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                products: []
+            };
         }
     },
     props: {
@@ -69,8 +116,29 @@ export default {
 </script>
 
 <style scoped>
-    .btn {
+    .btn-sm {
         color: #42b983;
+        margin-bottom: -6px;
     }
+    .btn-success {
+        background-color: #42b983;
+        border-color: #42b983;
+    }
+    .btn-success:hover {
+        background-color: #37a071;
+    }
+    .btn:focus {
+        box-shadow: 0 0 .2rem #42b983;
+    }
+    input {
+        display: block;
+        margin: .4rem auto;
+    }
+    .form-control:focus {
+        border-color: #42b983;
+        box-shadow: none;
+        box-shadow: 0 0 .1rem #42b983;
+    }
+
 </style>
 
