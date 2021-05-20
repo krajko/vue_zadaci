@@ -34,14 +34,18 @@
           </tr>
       </table>
 
-    <ul>
-      <li v-for="item in sektor" :key="item">
+    <table>
+      <tr v-for="item in sektor" :key="item">
+        <td>
           {{ item }}
-        <button @click="alertAnimals(item)">
-          Prikazi listu zivotinja
-        </button>
-      </li> 
-    </ul>
+        </td>
+        <td>
+          <button @click="alertAnimals(item)">
+            Prikazi listu zivotinja
+          </button>
+        </td>
+      </tr> 
+    </table>
 
     <ul>
       <li v-for="item in sektor" :key="item">
@@ -176,7 +180,7 @@ export default {
 
   table {
     text-align: left;
-    margin: auto;
+    margin: 10px auto;
     border: 1px solid #2c3e5033;
   }
 
