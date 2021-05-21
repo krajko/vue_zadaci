@@ -1,7 +1,6 @@
 <template>
   <div>
-    {{ id }} {{ customers[0].firstName }}
-    <app-latest-purchases :id="id" :customers="customers"></app-latest-purchases>
+    <app-latest-purchases></app-latest-purchases>
   </div>
 </template>
 
@@ -11,7 +10,6 @@ import AppLatestPurchases from '../components/AppLatestPurchases.vue'
 export default {
   components: { AppLatestPurchases },
   name: 'LatestPurchases',
-  props:['id', 'customers'],
   data() {
     return {
 

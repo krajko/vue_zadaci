@@ -29,28 +29,23 @@
 </template>
 
 <script>
+import httpService from "../services/HttpService";
+
 export default {
-    props: ['id', 'customers'],
     data() {
         return {
-
+            customers: []
         }
     },
+
+    created() {
+        this.customers = httpService.getCustomers();
+    },
+
     computed: {     
-
         customer() {
-            let customer = this.customers.reduce((acc, curr) => {
-                if (curr.id === this.id) {
-                    acc = curr;
-                }
-
-                return acc;
-            }, {});
-            console.log(customer);
-            console.log(this.id);
-            return customer;
+            return this.customers.find(customer => customer.id == this.$route.params.id);
         }
-
     }
 }
 </script>

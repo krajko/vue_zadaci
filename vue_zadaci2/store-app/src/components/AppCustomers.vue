@@ -25,7 +25,7 @@
                                 <p class="my-0 py-0 text-muted" style="font-size: .9rem;"> {{ customer.email }} </p>
                         </div>
                         <div class="col-4 d-flex justify-content-end align-items-end text-end">
-                            <router-link :to="{ name:'latest-purchases', params: { id: customer.id } }" :customers="customers" class="btn btn-sm link"><em>Latest purchases</em></router-link>
+                            <router-link :to="{ name:'latest-purchases', params: { id: customer.id } }" class="btn btn-sm link"><em>Latest purchases</em></router-link>
                         </div>
                         <div class="col-2 d-flex justify-content-end align-items-end text-end">
                             <button @click="remove(index)" class="btn btn-sm text-muted link" style="font-size: .8rem;">Remove</button>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import httpService from '../services/HttpService';
 
 export default {
     name: 'AppCustomers',
@@ -55,44 +56,18 @@ export default {
                 products: []
             },
 
-            customers: [
-                {
-                    id: 1,
-                    firstName: 'John',
-                    lastName: 'Doe',
-                    email: 'john@doe.com',
-                    products: []
-                },
-                {
-                    id: 2,
-                    firstName: 'Jane',
-                    lastName: 'Doe',
-                    email: 'jane@doe.com',
-                    products: []
-                },
-                {
-                    id: 3,
-                    firstName: 'Another',
-                    lastName: 'Customer',
-                    email: 'another@customer.com',
-                    products: []
-                },
-                {
-                    id: 4,
-                    firstName: 'Yet Another',
-                    lastName: 'Customer',
-                    email: 'yetanother@customer.com',
-                    products: []
-                }
-            ]
+            customers: []
         }
+    },
+    created() {
+        this.customers = httpService.getCustomers();
     },
     methods: {
         remove(index) {
             this.customers.splice(index, 1);
         },
         addCustomer() {
-            this.newCustomer.id = this.customers.reduce((acc, curr) => {
+            this.newCustomer.id = this.customers.find((acc, curr) => {
                 if (curr.id > acc) {
                     acc = curr.id;
                 }
@@ -102,7 +77,7 @@ export default {
             }, this.customers[0].id) 
 
             let newCustomer = {...this.newCustomer};
-            this.customers.push(newCustomer);
+            httpService.addCustomer(newCustomer);
 
             this.newCustomer = {
                 id: '',
