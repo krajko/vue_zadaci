@@ -1,7 +1,8 @@
 <template>
     <div class="container">
-        <ul class="list-unstyled">
-            <li v-for="product in products" :key="product.id" class="my-4">
+        <input v-model="query" class="form-control w-25 mt-5" placeholder="Search products">
+        <ul class="list-unstyled mt-5">
+            <li v-for="product in filteredProducts" :key="product.id" class="my-4">
 
                 <div class="d-flex flex-row mx-auto" style="width: 30vw">
                     <div class="col-6 text-start">
@@ -23,38 +24,54 @@ export default {
     name: 'AppProducts',
     data() {
         return {
+            query: '',
             products: [
                 {
                     id: '1',
-                    title: 'Product 1',
-                    quantity: 1
+                    title: 'Keyboard',
+                    quantity: 3
                 },
                 {
                     id: '2',
-                    title: 'Product 2',
-                    quantity: 4
+                    title: 'Cigarettes',
+                    quantity: 13
                 }, 
                 {
                     id: '3',
-                    title: 'Product 3',
-                    quantity: 13
+                    title: 'Dog',
+                    quantity: 1
                 },
                 {
                     id: '4',
-                    title: 'Product 4',
+                    title: 'Shoes',
                     quantity: 2
                 },
                 {
                     id: '5',
-                    title: 'Product 5',
+                    title: 'Juice',
                     quantity: 7
                 }
             ]
+        }
+    },
+    computed: {
+        filteredProducts() {
+            return this.products.filter(product => {
+                return product.title.toLowerCase().includes(this.query);
+            });
         }
     }
 }
 </script>
 
 <style scoped>
-
+    input {
+        display: block;
+        margin: .4rem auto;
+    }
+    .form-control:focus {
+        border-color: #42b983;
+        box-shadow: none;
+        box-shadow: 0 1 .1rem #42b983;
+    }
 </style>

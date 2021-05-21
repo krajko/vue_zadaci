@@ -142,7 +142,7 @@ export default {
     .form-control:focus {
         border-color: #42b983;
         box-shadow: none;
-        box-shadow: 0 0 .1rem #42b983;
+        box-shadow: 0 1 .1rem #42b983;
     }
 
 </style>
