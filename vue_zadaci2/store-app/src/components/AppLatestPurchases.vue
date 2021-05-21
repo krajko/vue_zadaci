@@ -16,7 +16,7 @@
                     <em>{{ product.title }}</em>
                     <!-- <hr class="my-0" style="width:20vw"> -->
                 </li>
-                <li v-if="customer.products.length === 0">
+                <li v-if="customer.products.length === 0" class="my-3">
                     <p><em>No products to show</em></p>
                 </li>
             </ul>

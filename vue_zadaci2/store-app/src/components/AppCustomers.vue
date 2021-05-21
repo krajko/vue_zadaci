@@ -1,6 +1,7 @@
 <template>
-    <div class="d-flex flex-row justify-content-center">
-        <div class="mx-4 mt-4">
+    <div class="d-flex flex-row justify-content-center align-items-center">
+
+        <div class="mx-4">
             <div class="text-start">
                 <h5 class="mb-1"><strong>Add a customer</strong></h5>
             </div>
@@ -24,14 +25,14 @@
                                 <p class="my-0 py-0"> {{ customer.firstName }} {{ customer.lastName }} </p> 
                                 <p class="my-0 py-0 text-muted" style="font-size: .9rem;"> {{ customer.email }} </p>
                         </div>
-                        <div class="col-4 d-flex justify-content-end align-items-end text-end">
-                            <router-link :to="{ name:'latest-purchases', params: { id: customer.id } }" class="btn btn-sm link"><em>Latest purchases</em></router-link>
-                        </div>
-                        <div class="col-2 d-flex justify-content-end align-items-end text-end">
+                        <div class="col d-flex justify-content-end align-items-end">
                             <button @click="remove(index)" class="btn btn-sm text-muted link" style="font-size: .8rem;">Remove</button>
                         </div>
+                        <div class="col d-flex justify-content-end align-items-end">
+                            <router-link :to="{ name:'latest-purchases', params: { id: customer.id } }" class="btn btn-sm btn-success link">Latest purchases</router-link>
+                        </div>
                     </div>
-                    <hr class="mx-auto my-0 py-0" style="width: 30vw">
+                    <hr class="mx-auto my-0 py-0">
 
                 </li>
             </ul>
@@ -86,9 +87,13 @@ export default {
 </script>
 
 <style scoped>
+    .btn {
+        /* color: #42b983; */
+        /* margin-bottom: -6px; */
+    }
     .btn-sm {
-        color: #42b983;
-        margin-bottom: -6px;
+        border-radius: 0.3rem 0.3rem 0 0;
+        padding: .3rem .8rem;
     }
     .btn-success {
         background-color: #42b983;
@@ -102,6 +107,7 @@ export default {
     }
     .link:focus {
         box-shadow: none;
+        margin: 0;
     }
     input {
         display: block;

@@ -6,13 +6,13 @@
         </div>
 
         <div v-if="product.quantity > 0" class="row mx-auto" style="width: 15vw">
-            <select v-model="selected" class="form-select my-3">
+            <select v-model="selected" class="form-select my-5">
                 <option disabled hidden value="0">Select a customer</option>
                 <option :value="customer.id" v-for="customer in customers" :key="customer.id">{{ customer.firstName }} {{ customer.lastName }}</option>
             </select>
             <div class="row mx-auto" style="width: 6vw">
                 <button @click="confirm" class="btn btn-success mb-2">Confirm</button>
-                <button @click="cancel" class="btn">Cancel</button>
+                <button @click="cancel" class="btn btn-sm link">Cancel</button>
             </div>
         </div>
 
@@ -60,6 +60,9 @@ export default {
 </script>
 
 <style scoped>
+    .btn:focus {
+        box-shadow: 0 0 .2rem #42b983;
+    }
     .btn-success {
         background-color: #42b983;
         border-color: #42b983;
@@ -71,5 +74,9 @@ export default {
         border-color: #42b983;
         box-shadow: none;
         box-shadow: 0 1 .1rem #42b983;
+    }
+    .link:focus {
+        box-shadow: none;
+        margin: 0;
     }
 </style>
