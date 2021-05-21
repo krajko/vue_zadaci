@@ -68,7 +68,7 @@ export default {
             this.customers.splice(index, 1);
         },
         addCustomer() {
-            this.newCustomer.id = this.customers.length;
+            this.newCustomer.id = this.customers.length + 1;
 
             let newCustomer = {...this.newCustomer};
             httpService.addCustomer(newCustomer);
