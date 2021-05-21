@@ -4,7 +4,7 @@
         <ul class="list-unstyled mt-5">
             <li v-for="(product, i) in filteredProducts" :key="product.id" class="my-4">
 
-                <div class="d-flex flex-row mx-auto" style="width: 30vw">
+                <div class="d-flex flex-row mx-auto" style="width: 25vw">
                     <div class="col d-flex justify-content-start align-items-end">
                         <button @click="inc(i)" class="btn btn-quantity"><strong>+</strong></button>
                         <p class="mx-1 my-0 py-0" style="font-size: .9rem"> <strong>{{ product.quantity }}</strong></p>
@@ -17,7 +17,7 @@
                         <router-link :to="{ name: 'sell', params: { id: product.id } }" class="btn btn-sm btn-success">Sell</router-link>
                     </div>
                 </div>
-                <hr class="mx-auto my-0 py-0" style="width: 30vw">
+                <hr class="mx-auto my-0 py-0" style="width: 25vw">
                 
             </li>
         </ul>
@@ -78,12 +78,9 @@ export default {
         background-color: #42b983;
         border-color: #42b983;
         padding: .25rem .8rem;
+        border-radius: 0.4rem 0.4rem 0 0;
     }
     .btn-success:hover {
         background-color: #37a071;
-    }
-
-    .btn-sm {
-        border-radius: 0.4rem 0.4rem 0 0;
     }
 </style>
