@@ -2,22 +2,19 @@
     <div>
 
         <div class="mx-auto mt-5" style="width: 25vw;">
-            <div class="d-flex flex-row justify-content-between align-items-end">
-                <div class="text-start">
-                    <h6 class="py-0 my-0"><strong>{{ customer.firstName }} {{ customer.lastName }}</strong></h6>
-                </div>
-                <div class="text-end">
-                    <p class="py-0 my-0 text-muted"><em>{{ customer.email }}</em></p>
-                </div>
-            </div>
-            <hr class="mx-auto my-1">
+            <h1 class="py-0 my-0"> {{ customer.firstName }} {{ customer.lastName }} </h1>
+            <p class="py-0 my-0 text-muted"> {{ customer.email }} </p>
         </div>
 
-        <div class="d-flex flex-column text-start mx-auto my-3" style="width: 20vw;">
-            <ul class="list-unstyled ms-3">
-                <li v-for="product in customer.products" :key="product.id">
-                    <em>Product name</em>
-                    <hr class="my-0" style="width:20vw">
+        <div class="row mt-5">
+            <h5 class="mb-1 pb-0">Recently purchased</h5>
+            <hr class="my-0 py-0 mx-auto" style="width: 10vw;">
+        </div>
+        <div class="d-flex flex-column text-start mx-auto" style="width: 20vw;">
+            <ul class="list-unstyled mx-auto">
+                <li v-for="product in customer.products" :key="product.id" class="my-3">
+                    <em>{{ product.title }}</em>
+                    <!-- <hr class="my-0" style="width:20vw"> -->
                 </li>
                 <li v-if="customer.products.length === 0">
                     <p><em>No products to show</em></p>

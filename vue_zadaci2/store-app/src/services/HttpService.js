@@ -56,22 +56,34 @@ class HttpService {
             quantity: 7
         }
     ]
+
     getCustomers() {
         return this.customers;
     }
+
     addCustomer(customer) {
         this.customers.push(customer);
     }
+
     getProducts() {
         return this.products;
     }
+
     incProductQuantity(i) {
         this.products[i].quantity++;
     }
+
     decProductQuantity(i) {
         if (this.products[i].quantity > 0) {
             this.products[i].quantity--;
         }
+    }
+
+    sellProduct(customer_id, product_id) {
+        let customer = this.customers.find(customer => customer.id === customer_id);
+        let product = this.products.find(product => product.id === product_id);
+        customer.products.push(product);
+        product.quantity--;
     }
 }
 
