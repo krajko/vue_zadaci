@@ -15,12 +15,16 @@ const routes = [
   {
     path:'/customers/:id',
     name:'latest-purchases',
-    props: true,
     component: () => import('../views/LatestPurchases.vue')
   },
   {
     path: '/products',
     component: () => import('../views/Products.vue')
+  },
+  {
+    path: '/products/:id',
+    name: 'sell',
+    component: () => import('../views/Sell.vue')
   }
 ]
 

@@ -14,7 +14,7 @@
                         <p class="my-0 py-0"> {{ product.title }} </p>
                     </div>
                     <div class="col-2 text-end">
-                        <button class="btn btn-sm btn-success">Sell</button>
+                        <router-link :to="{ name: 'sell', params: { id: product.id } }" class="btn btn-sm btn-success">Sell</router-link>
                     </div>
                 </div>
                 <hr class="mx-auto my-0 py-0" style="width: 30vw">
@@ -41,7 +41,7 @@ export default {
     computed: {
         filteredProducts() {
             return this.products.filter(product => {
-                return product.title.toLowerCase().includes(this.query);
+                return product.title.toLowerCase().includes(this.query.toLowerCase());
             });
         }
     },
