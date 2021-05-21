@@ -6,11 +6,17 @@
         </div>
 
         <div v-if="product.quantity > 0" class="row mx-auto" style="width: 15vw">
-            <select v-model="selected" class="form-select my-5">
-                <option disabled hidden value="0">Select a customer</option>
-                <option :value="customer.id" v-for="customer in customers" :key="customer.id">{{ customer.firstName }} {{ customer.lastName }}</option>
-            </select>
-            <div class="row mx-auto" style="width: 6vw">
+            <div class="mt-5">
+                <select v-model="selected" class="form-select" v-bind:class="{ 'is-invalid': error, 'is-valid': selected !== 0 }">
+                    <option disabled hidden value="0">Select a customer</option>
+                    <option :value="customer.id" v-for="customer in customers" :key="customer.id">{{ customer.firstName }} {{ customer.lastName }}</option>
+                </select>
+                <div v-if="error != ''" class="invalid-feedback">
+                    {{ error }}
+                </div>
+            </div>
+
+            <div class="row mx-auto mt-4" style="width: 6vw">
                 <button @click="confirm" class="btn btn-success mb-2">Confirm</button>
                 <button @click="cancel" class="btn btn-sm link">Cancel</button>
             </div>
@@ -31,7 +37,8 @@ export default {
       return {
         products: [],
         customers: [],
-        selected: 0
+        selected: 0,
+        error: null
       }
   },
   created() {
@@ -45,11 +52,13 @@ export default {
   },
   methods: {
       confirm() {
-          if (this.selected === 0) {
-              return;
-          }
+        if (this.selected === 0) {
+            this.error = 'Please select a customer.';
+            return this.error;
+        }
 
-          httpService.sellProduct(this.selected, this.$route.params.id);
+        this.error = null;
+        httpService.sellProduct(this.selected, this.$route.params.id);
       },
 
       cancel() {
