@@ -67,14 +67,7 @@ export default {
             this.customers.splice(index, 1);
         },
         addCustomer() {
-            this.newCustomer.id = this.customers.find((acc, curr) => {
-                if (curr.id > acc) {
-                    acc = curr.id;
-                }
-                acc++;
-
-                return acc;
-            }, this.customers[0].id) 
+            this.newCustomer.id = this.customers.length;
 
             let newCustomer = {...this.newCustomer};
             httpService.addCustomer(newCustomer);
