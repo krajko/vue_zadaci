@@ -4,6 +4,7 @@
       <router-link to="/customers">Customers</router-link> |
       <router-link to="/products">Products</router-link>
     </div>
+    <hr class="m-auto mb-4" style="width: 40vw;">
     <router-view/>
   </div>
 </template>
@@ -28,7 +29,7 @@
   text-decoration: none;
 }
 
-#nav a.router-link-exact-active {
+#nav a.router-link-active {
   color: #42b983;
 }
 </style>
