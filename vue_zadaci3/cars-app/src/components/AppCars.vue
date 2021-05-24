@@ -4,7 +4,7 @@
 
     <ul class="list-unstyled">
       <li v-for="car in cars" :key="car.id"> {{ car.brand }} {{ car.model }} {{ car.year }} </li>
-      <li v-if="!car">Car list is empty.</li>
+      <li v-if="cars.length === 0">Car list is empty.</li>
     </ul>
 
   </div>
@@ -22,8 +22,8 @@ export default {
     }
   },
 
-  created() {
-    this.cars = Cars.getAll().then(console.log);
+  async created() {
+    this.cars = await Cars.getAll();
     console.log(this.cars);
   }
 }

@@ -14,6 +14,12 @@ class Cars {
 
         return data;
     }
+
+    async add(car) {
+        const response = await this.client.post('cars', car);
+
+        return response;
+    }
 }
 
 export default new Cars();
