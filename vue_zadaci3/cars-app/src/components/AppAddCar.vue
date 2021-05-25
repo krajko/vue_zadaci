@@ -2,13 +2,12 @@
     <div>
         <h1>Add car</h1>
 
-        <form v-on:submit.prevent="addCar">
-            <input v-model="newCar.brand" type="text" placeholder="Brand">
+        <form @submit.prevent="addCar">
+            <input v-model="newCar.brand" type="text" placeholder="Brand" required minlength="2">
 
-            <input v-model="newCar.model" type="text" placeholder="Model">
+            <input v-model="newCar.model" type="text" placeholder="Model" required minlength="2">
 
-            <select v-model="newCar.year" type="year">
-                <option disabled hidden value="0">Year </option>
+            <select v-model="newCar.year" type="year" required>
                 <option v-for="year in years" :key="year" :value="year"> {{ year }}</option>
             </select>
 
@@ -29,11 +28,14 @@
                 <input v-model="newCar.engine" type="radio" value="hybrid"> Hybrid
             </div>
 
-            <input v-model="newCar.numberOfDoors" type="number" placeholder="Number of doors">
+            <label>Number of doors</label>
+            <input v-model="newCar.numberOfDoors" type="number" placeholder="Number of doors" required min="2">
 
-            <button @click="reset" class="btn">Reset</button>
-            <button @click="preview" class="btn">Preview</button>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <div class="mt-5">
+                <button @click="reset" class="btn text-muted">Reset</button>
+                <button @click="preview" class="btn">Preview</button>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
         </form>
 
     </div>
@@ -50,12 +52,14 @@ export default {
         newCar: {
             brand: '',
             model: '',
-            year: 0,
+            year: 2018,
             maxSpeed: 0,
             isAutomatic: false,
-            engine: '',
-            numberOfDoors: 0,
-        }
+            engine: 'diesel',
+            numberOfDoors: 4,
+        },
+
+        errors: {}
     }
   },
 
@@ -64,13 +68,40 @@ export default {
   },
 
   methods: {
+    validate() {
+        this.errors = {};
+
+        if (this.newCar.brand.length < 2) {
+            this.errors.brand = 'Brand is required and must be at least 2 characters long.';
+        }
+
+        if (this.newCar.model.length < 2) {
+            this.errors.model = 'Model is required and must be at least 2 characters long.';
+        }
+
+        if (this.newCar.year === 0) {
+            this.errors.year = 'Please select a year.';
+        }
+
+        if (this.newCar.engine === '') {
+            this.errors.engine = 'Please select engine type.';
+        }
+
+        if (this.newCar.numberOfDoors === 0) {
+            this.errors.numberOfDoors = 'Please choose a number of doors.';
+        }
+
+        if (this.errors === {}) {
+            console.log('add');
+            this.addCar();
+        }
+    },
+
     async addCar() {
         let response = await Cars.add(this.newCar);
 
-        console.log(response);
-
         if (response.status === 200) {
-            this.$router.push('/cars');
+            this.$router.push('cars');
         }
     },
 
@@ -108,13 +139,20 @@ export default {
 
 <style scoped>
     input {
-        margin: 1rem auto;
+        margin: 10px auto;
     }
     input[type="text"] {
         display: block;
     }
     input[type="number"] {
         display: block;
+        margin-top: 0;
+    }
+    input[type="radio"] {
+        margin: 30px 3px;
+    }
+    select {
+        margin-bottom: 10px;
     }
     label {
         margin: 7px;

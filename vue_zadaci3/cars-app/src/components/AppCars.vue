@@ -24,7 +24,6 @@ export default {
 
   async created() {
     this.cars = await Cars.getAll();
-    console.log(this.cars);
   }
 }
 </script>
