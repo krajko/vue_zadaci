@@ -16,9 +16,9 @@ class Cars {
     }
 
     async add(car) {
-        const response = await this.client.post('cars', car);
+        const { status } = await this.client.post('cars', car);
 
-        return response;
+        return status;
     }
 
     async getById(id) {
@@ -28,15 +28,15 @@ class Cars {
     }
 
     async edit(id, car) {
-        const response = await this.client.patch(`cars/${id}`, car);
+        const { status } = await this.client.patch(`cars/${id}`, car);
 
-        return response;
+        return status;
     }
 
     async remove(id) {
-        const response = await this.client.delete(`cars/${id}`);
+        const { status } = await this.client.delete(`cars/${id}`);
 
-        return response;
+        return status;
     }
 }
 

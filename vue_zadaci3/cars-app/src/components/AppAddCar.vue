@@ -45,60 +45,62 @@ import Cars from '../services/Cars';
 
 export default {
     name: 'AppAddCar',
-    props: ['mode', 'id'],
 
     data() {
         return {
-            car: this.getCar(),
-
+            car: {},
         }
     },
 
     created() {
-        this.car = {
-            brand: '',
-            model: '',
-            year: 2018,
-            maxSpeed: 0,
-            isAutomatic: false,
-            engine: 'diesel',
-            numberOfDoors: 4
-        }
+        this.getCar();
     },
 
     methods: {
         async addCar() {
-            let response = await Cars.add(this.car);
-
-            if (response.status === 200) {
+            try {
+                await Cars.add(this.car);
+            } catch(err) {
+                this.error();
+                console.log(err);
+            } finally {
                 this.$router.push({ name: 'Cars' });
             }
         },
 
         async editCar() {
-            let response = await Cars.edit(this.id, this.car);
-
-            if (response.status === 200) {
+            try {
+                await Cars.edit(this.car.id, this.car);
+            } catch(err) {
+                this.error();
+                console.log(err);
+            } finally {
                 this.$router.push({ name: 'Cars' });
             }
         },
 
         async getCar() {
-            if (this.mode === 'edit') {
-                return this.car = await Cars.getById(this.id);
+            if (this.editMode) {
+                try {
+                    this.car = await Cars.getById(this.$route.params.id);
+                } catch (err) {
+                    this.error();
+                    console.log(err);
+                }
+            } else {
+                this.reset();
             }
-            
         },
 
         reset() {
             this.car = {
                 brand: '',
                 model: '',
-                year: 0,
+                year: 1990,
                 maxSpeed: 0,
                 isAutomatic: false,
-                engine: '',
-                numberOfDoors: 0,
+                engine: 'diesel',
+                numberOfDoors: 4,
             }
         },
 
@@ -113,13 +115,15 @@ export default {
         },
 
         submit() {
-            if (this.mode == 'edit') {
+            if (this.editMode) {
                 this.editCar();
-            }
-
-            if (this.mode == 'add') {
+            } else {
                 this.addCar();
             }
+        },
+
+        error() {
+            alert('Something went wrong. Please try again.');
         }
 
     },
@@ -129,6 +133,13 @@ export default {
             return Array.from({length: 2019 - 1990}, (value, index) => 1990 + index);
         },
 
+        editMode() {
+            if (this.$route.params.id) {
+                return true;
+            }
+
+            return false;
+        }
   }
 
 }

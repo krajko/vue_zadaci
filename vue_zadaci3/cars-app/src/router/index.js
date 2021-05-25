@@ -11,19 +11,19 @@ const routes = [
   {
     path: '/cars',
     name: 'Cars',
-    component: () => import( '../views/Cars.vue')
+    component: () => import( '../components/AppCars.vue')
   }, 
   {
     path: '/add',
     name: 'AddCar',
     props: true,
-    component: () => import('../views/AddCar.vue')
+    component: () => import('../components/AppAddCar.vue')
   },
   {
     path: '/edit/:id',
     name: 'Edit',
     props: true,
-    component: () => import('../views/EditCar.vue')
+    component: () => import('../components/AppAddCar.vue')
   }
 ]
 
