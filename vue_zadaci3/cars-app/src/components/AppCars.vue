@@ -3,7 +3,10 @@
     <h1>Cars component</h1>
 
     <ul class="list-unstyled">
-      <li v-for="car in cars" :key="car.id"> {{ car.brand }} {{ car.model }} {{ car.year }} </li>
+      <li v-for="car in cars" :key="car.id"> 
+        {{ car.brand }} {{ car.model }} {{ car.year }} 
+        <router-link :to="`/edit/${car.id}`" class="btn text-success">Edit</router-link>
+      </li>
       <li v-if="cars.length === 0">Car list is empty.</li>
     </ul>
 

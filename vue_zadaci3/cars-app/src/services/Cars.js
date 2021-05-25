@@ -20,6 +20,18 @@ class Cars {
 
         return response;
     }
+
+    async getById(id) {
+        const { data } = await this.client.get(`cars/${id}`);
+
+        return data;
+    }
+
+    async edit(id, car) {
+        const response = await this.client.patch(`cars/${id}`, car);
+
+        return response;
+    }
 }
 
 export default new Cars();

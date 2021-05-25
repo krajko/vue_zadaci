@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-add-car mode="add" :id="$route.params.id"></app-add-car>
+    <app-add-car mode="edit" :id="$route.params.id"></app-add-car>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import AppAddCar from '../components/AppAddCar.vue'
 
 export default {
   components: { AppAddCar },
-  name: 'AddCar',
+  name: 'EditCar',
 
   data() {
     return {
