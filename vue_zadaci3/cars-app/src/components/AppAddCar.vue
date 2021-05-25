@@ -31,8 +31,8 @@
             <input v-model="car.numberOfDoors" type="number" placeholder="Number of doors" required min="2">
 
             <div class="mt-5">
-                <button @click="reset" class="btn text-muted">Reset</button>
-                <button @click="preview" class="btn">Preview</button>
+                <button @click="reset" type="button" class="btn text-muted">Reset</button>
+                <button @click="preview" type="button" class="btn">Preview</button>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
         </form>

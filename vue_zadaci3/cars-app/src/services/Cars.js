@@ -32,6 +32,12 @@ class Cars {
 
         return response;
     }
+
+    async remove(id) {
+        const response = await this.client.delete(`cars/${id}`);
+
+        return response;
+    }
 }
 
 export default new Cars();
