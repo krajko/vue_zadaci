@@ -21,6 +21,12 @@ class Posts {
     return data;
   }
 
+  async add(post) {
+    const { status } = await this.client.post('posts', post);
+
+    return status;
+  }
+
 }
 
 export default new Posts();

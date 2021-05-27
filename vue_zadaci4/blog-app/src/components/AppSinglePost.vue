@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <h1> {{ post.title }}</h1>
-    <p> {{ post.text }}</p>
+  <div class="mx-auto mt-0" style="max-width: 600px;">
+    <div class="row text-start">
+      <h3><strong> {{ post.title }} </strong></h3>
+      <p> {{ post.text }}</p>
+    </div>
   </div>
 </template>
 
@@ -18,17 +20,19 @@ export default {
   },
 
   created() {
-
+    this.getPost();
   },
 
   methods: {
     async getPost() {
       try {
         this.post = await Posts.get(this.$route.params.id);
+        console.log(this.post);
       } catch(err) {
         console.log(err);
       }
     }
+
   }
 }
 </script>
