@@ -1,11 +1,13 @@
 <template>
   <div class="mt-0">
 
-    <form class="row mx-auto" style="max-width: 500px;" v-on:submit.prevent="add">
-      <input class="col-6 form-control mb-3" v-model.trim="$v.post.title.$model" :class="{ 'is-invalid': !$v.post.title.minLength }" type="text" placeholder="Title" required>
-      <textarea class="col-6 form-control mb-3" v-model="$v.post.text.$model" :class="{ 'is-invalid': !$v.post.text.maxLength }" rows="12" placeholder="Content" required></textarea>
-      <button class="col-3 mx-auto btn btn-secondary" type="button" @click="reset">Reset</button>
-      <button class="col-3 mx-auto btn btn-primary" type="submit">Submit</button>
+    <form class="mx-auto" style="max-width: 500px;" v-on:submit.prevent="submit">
+      <input class="form-control mb-3" v-model.trim="$v.post.title.$model" :class="{ 'is-invalid': !$v.post.title.minLength }" type="text" placeholder="Title" required>
+      <textarea class="form-control mb-3" v-model="$v.post.text.$model" :class="{ 'is-invalid': !$v.post.text.maxLength }" rows="12" placeholder="Content" required></textarea>
+      <div class="d-flex flex-row justify-content-evenly">
+        <button class="col-3 btn btn-secondary" type="button" @click="reset">Reset</button>
+        <button class="col-3 btn btn-primary" type="submit">Submit</button>
+      </div>
     </form>
 
   </div>
@@ -20,11 +22,12 @@ export default {
 
   data() {
     return {
-      post: {
-        title: '',
-        text: ''
-      }
+      post: this.reset()
     }
+  },
+
+  created() {
+    this.get()
   },
 
   validations: {
@@ -55,6 +58,44 @@ export default {
         title: '',
         text: ''
       }
+    },
+
+    async get() {
+      if (this.editMode) {
+        try {
+          this.post = await Posts.get(this.$route.params.id);
+        } catch(err) {
+          console.log(err);
+          reset();
+        }
+      }
+    },
+
+    async edit() {
+      try {
+        await Posts.edit(this.post);
+        this.$router.push({ name: 'Post', params: { id: this.post.id} });
+      } catch(err) {
+        console.log(err);
+      }
+    },
+
+    submit() {
+      if (this.editMode) {
+        this.edit();
+      } else {
+        this.add();
+      }
+    }
+  },
+
+  computed: {
+    editMode() {
+      if (this.$route.params.id) {
+        return true;
+      }
+
+      return false;
     }
   }
 }

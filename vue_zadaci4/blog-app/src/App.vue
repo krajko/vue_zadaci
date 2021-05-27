@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav" class="h1 py-3 my-4">
-      <router-link to="/posts" class="me-1">Posts</router-link>
-      <router-link to="/add" class="ms-1">Add</router-link>
+      <router-link to="/posts" class="me-4">Posts</router-link>
+      <router-link to="/add" class="ms-4">Add</router-link>
     </div>
     <transition name="fade-in-top">
       <router-view/>
@@ -12,6 +12,7 @@
 
 <style lang="scss">
   $primary: #00adb5;
+  $secondary: #2c3e50;
 
   @import "../node_modules/bootstrap/scss/bootstrap.scss";
 </style>
