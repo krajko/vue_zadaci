@@ -11,10 +11,17 @@
 </template>
 
 <style lang="scss">
-  $primary: #00adb5;
-  $secondary: #2c3e50;
 
-  @import "../node_modules/bootstrap/scss/bootstrap.scss";
+$primary: #75cfb8;
+$warning: #ffc478;
+
+  // $danger: #ec4646;
+
+$input-btn-focus-width: .1rem;
+$input-btn-focus-blur: 0;
+$input-btn-focus-color-opacity: .25;
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
 </style>
 
 <style>
@@ -42,6 +49,22 @@
 }
 
 .btn-primary:hover {
+  color: white;
+}
+
+.btn-warning {
+  color: white;
+}
+
+.btn-warning:hover {
+  color: white;
+}
+
+.btn-danger {
+  color: white;
+}
+
+.btn-danger:hover {
   color: white;
 }
 

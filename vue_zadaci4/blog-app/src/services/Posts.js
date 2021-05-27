@@ -33,6 +33,12 @@ class Posts {
     return status;
   }
 
+  async delete(id) {
+    const { status } = await this.client.delete(`posts/${id}`);
+
+    return status;
+  }
+
 }
 
 export default new Posts();

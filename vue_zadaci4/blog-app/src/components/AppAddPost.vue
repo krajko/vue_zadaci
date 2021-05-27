@@ -22,7 +22,7 @@ export default {
 
   data() {
     return {
-      post: this.reset()
+      post: {}
     }
   },
 
@@ -68,6 +68,8 @@ export default {
           console.log(err);
           reset();
         }
+      } else {
+        reset();
       }
     },
 
