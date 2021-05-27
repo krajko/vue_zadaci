@@ -3,6 +3,7 @@
     <ul class="list-unstyled d-flex flex-column justify-content-center">
       <li v-for="post in posts" :key="post.id">
         {{ post.title }}
+        <router-link :to="`posts/${post.id}`" class="btn btn-primary">View post</router-link>
       </li>
 
       <li v-if="posts.length === 0">No posts to show.</li>
