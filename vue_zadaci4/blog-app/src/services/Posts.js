@@ -16,7 +16,7 @@ class Posts {
   }
 
   async get(id) {
-    const { data } = await this.client.get(`posts/${id}`);
+    const { data } = await this.client.get(`posts/${id}?filter={ "include": ["comments"] }`);
 
     return data;
   }
@@ -35,6 +35,12 @@ class Posts {
 
   async delete(id) {
     const { status } = await this.client.delete(`posts/${id}`);
+
+    return status;
+  }
+
+  async addComment(comment, postId) {
+    const { status } = await this.client.post(`posts/${postId}/comments`, comment);
 
     return status;
   }

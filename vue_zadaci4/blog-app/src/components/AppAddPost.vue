@@ -2,11 +2,12 @@
   <div class="mt-0">
 
     <form class="mx-auto" style="max-width: 500px;" v-on:submit.prevent="submit">
-      <input class="form-control mb-3" v-model.trim="$v.post.title.$model" :class="{ 'is-invalid': !$v.post.title.minLength }" type="text" placeholder="Title" required>
-      <textarea class="form-control mb-3" v-model="$v.post.text.$model" :class="{ 'is-invalid': !$v.post.text.maxLength }" rows="12" placeholder="Content" required></textarea>
-      <div class="d-flex flex-row justify-content-evenly">
-        <button class="col-3 btn btn-secondary" type="button" @click="reset">Reset</button>
-        <button class="col-3 btn btn-primary" type="submit">Submit</button>
+      <input class="form-control bold mb-3" v-model.trim="$v.post.title.$model" :class="{ 'is-invalid': !$v.post.title.minLength }" type="text" placeholder="Title" required>
+      <textarea class="form-control mb-3" v-model.trim="$v.post.text.$model" :class="{ 'is-invalid': !$v.post.text.maxLength }" rows="12" placeholder="Content" required></textarea>
+
+      <div class="d-flex flex-row justify-content-center">
+        <button class="col-3 btn btn-secondary me-2" type="button" @click="reset">Reset</button>
+        <button class="col-3 btn btn-warning ms-2" type="submit">Submit</button>
       </div>
     </form>
 
@@ -22,7 +23,10 @@ export default {
 
   data() {
     return {
-      post: {}
+      post: {
+        title: '',
+        text: ''
+      }
     }
   },
 
@@ -104,5 +108,16 @@ export default {
 </script>
 
 <style scoped>
-
+  .form-control:focus {
+    border-color: #ffe2bc;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-weight: 400;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    font-weight: 400;
+  }
 </style>

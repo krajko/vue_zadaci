@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <div id="nav" class="h1 py-3 my-4">
-      <router-link to="/posts" class="me-4">Posts</router-link>
-      <router-link to="/add" class="ms-4">Add</router-link>
+      <div id="posts" class="d-inline">
+        <router-link to="/posts" class="posts me-4">Posts</router-link>
+      </div>
+      <div id="add" class="d-inline">
+        <router-link to="/add" class="add ms-4">Add</router-link>
+      </div>
     </div>
     <transition name="fade-in-top">
       <router-view/>
@@ -15,11 +19,10 @@
 $primary: #75cfb8;
 $warning: #ffc478;
 
-  // $danger: #ec4646;
-
-$input-btn-focus-width: .1rem;
+$input-btn-focus-width: 1px;
+$input-btn-focus-color-opacity: 100;
 $input-btn-focus-blur: 0;
-$input-btn-focus-color-opacity: .25;
+$input-btn-focus-box-shadow: none;
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 </style>
@@ -40,9 +43,17 @@ $input-btn-focus-color-opacity: .25;
   transition: ease-in-out 0.6s;
 }
 
-#nav a.router-link-active {
+#posts a.router-link-active {
   color: var(--bs-primary);
 }
+
+#add a.router-link-active {
+  color: var(--bs-warning);
+}
+
+textarea {
+    resize: none;
+  }
 
 .btn-primary {
   color: white;
@@ -75,8 +86,8 @@ $input-btn-focus-color-opacity: .25;
 
 @-webkit-keyframes fade-in-top {
   0% {
-    -webkit-transform: translateY(-50px);
-            transform: translateY(-50px);
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
     opacity: 0;
   }
   100% {
@@ -87,8 +98,8 @@ $input-btn-focus-color-opacity: .25;
 }
 @keyframes fade-in-top {
   0% {
-    -webkit-transform: translateY(-50px);
-            transform: translateY(-50px);
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
     opacity: 0;
   }
   100% {
