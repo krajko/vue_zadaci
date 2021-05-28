@@ -1,7 +1,7 @@
 <template>
+  <transition appear appear-active-class="fade-in-fwd">
 
   <div class="mt-0">
-
     <form class="mx-auto" style="max-width: 500px;" v-on:submit.prevent="submit">
       <input class="form-control bold mb-3" v-model.trim="$v.post.title.$model" :class="{ 'is-invalid': !$v.post.title.minLength }" type="text" placeholder="Title" required>
       <textarea class="form-control mb-3" v-model.trim="$v.post.text.$model" :class="{ 'is-invalid': !$v.post.text.maxLength }" rows="12" placeholder="Content" required></textarea>
@@ -11,9 +11,9 @@
         <button class="col-3 btn btn-warning ms-2" type="submit">Submit</button>
       </div>
     </form>
-
   </div>
 
+  </transition>
 </template>
 
 <script>
@@ -33,8 +33,8 @@ export default {
     }
   },
 
-  async created() {
-    await this.get();
+  created() {
+    this.get();
   },
 
   validations: {
@@ -73,10 +73,10 @@ export default {
           this.post = await Posts.get(this.id);
         } catch(err) {
           console.log(err);
-          reset();
+          this.reset();
         }
       } else {
-        reset();
+        this.reset();
       }
     },
 
@@ -114,7 +114,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
   .form-control:focus {
     border-color: #75cfb9de;
