@@ -10,7 +10,7 @@ class Posts {
   }
 
   async getAll() {
-    const { data } = await this.client.get('posts');
+    const { data } = await this.client.get('posts?filter={ "include": ["comments"] }');
 
     return data;
   }

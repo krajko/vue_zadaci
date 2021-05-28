@@ -68,7 +68,7 @@ export default {
     },
 
     async get() {
-      if (this.editMode) {
+      if (this.isEditMode) {
         try {
           this.post = await Posts.get(this.id);
         } catch(err) {
@@ -99,12 +99,8 @@ export default {
   },
 
   computed: {
-    editMode() {
-      if (this.id) {
-        return true;
-      }
-
-      return false;
+    isEditMode() {
+      return !!this.id;
     }
   },
 

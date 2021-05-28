@@ -3,7 +3,7 @@
   <div class="mt-0">
 
     <ul class="list-unstyled d-flex flex-column justify-content-center align-items-center">
-      <li v-for="post in posts" :key="post.id" class="card col-10 col-lg-6 col-xl-5 mb-3 mx-2">
+      <li v-for="post in posts" :key="post.id" class="card col-10 col-sm-8 col-lg-6 col-xl-5 mb-3 mx-2">
         <div class="card-body text-start pt-1">
             <div class="d-flex flex-row justify-content-between">
               <div class="col pt-3">
@@ -14,10 +14,11 @@
               </div>
             </div>
 
-            <p class="card-text text-muted mb-0 pb-0"><small> {{ post.text | preview(100) }} </small></p>
+            <p class="card-text text-muted mb-3 pb-0"><small> {{ post.text | preview(100) }} </small></p>
 
             <div class="d-flex flex-row justify-content-end align-items-end my-0">
               <p class="col self-align-start text-muted mb-0"><small> {{ post.createdAt | diffForHumans }} </small></p>
+              <p class="col self-align-start text-muted mb-0"><small> {{ post.comments.length }} Comments </small></p>
               <router-link :to="`edit/${post.id}`" class="btn btn-sm btn-secondary col-sm-2 me-2">Edit</router-link>
               <router-link :to="`posts/${post.id}`" class="btn btn-sm btn-primary col-sm-3">View post</router-link>
             </div>
