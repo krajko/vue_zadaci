@@ -1,8 +1,9 @@
 <template>
   <div class="mx-auto mt-0" style="max-width: 600px;">
     <div class="row text-start mb-3">
-      <h3><strong> {{ post.title }} </strong></h3>
-      <p class="mt-2"> {{ post.text }}</p>
+      <h3 class="mb-1"><strong> {{ post.title }} </strong></h3>
+      <p class="text-muted mb-1"><small> {{ post.createdAt | formatDate }} </small></p>
+      <p class="mt-1"> {{ post.text }}</p>
     </div>
 
 
@@ -18,11 +19,8 @@
 
       <ul class="list-unstyled mt-4">
         <li class="" v-for="comment in post.comments" :key="comment.id">
-          <p class="text-muted mt-3 mb-0 pb-0">
-            <em>
-              "{{ comment.text }}"
-            </em>
-          </p>
+          <p class="text-muted mt-3 mb-0 pb-0"><em> "{{ comment.text }}" </em></p>
+          <p class="text-muted"><em><small> {{ comment.createdAt | diffForHumans }} </small></em></p>
         </li>
       </ul>
 

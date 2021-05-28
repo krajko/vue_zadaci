@@ -1,4 +1,6 @@
 <template>
+  <transition name="fade-in-fwd">
+
   <div class="mt-0">
 
     <form class="mx-auto" style="max-width: 500px;" v-on:submit.prevent="submit">
@@ -12,6 +14,8 @@
     </form>
 
   </div>
+
+  </transition>
 </template>
 
 <script>
@@ -108,16 +112,9 @@ export default {
 </script>
 
 <style scoped>
+
   .form-control:focus {
-    border-color: #ffe2bc;
+    border-color: #75cfb9de;
   }
-  .bold {
-    font-weight: bold;
-  }
-  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    font-weight: 400;
-  }
-  ::-moz-placeholder { /* Firefox 19+ */
-    font-weight: 400;
-  }
+
 </style>
