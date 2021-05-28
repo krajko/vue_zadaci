@@ -60,7 +60,6 @@ textarea {
     color: white;
   }
 
-
   .btn-danger {
     color: white;
   }

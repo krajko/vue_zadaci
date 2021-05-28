@@ -1,5 +1,4 @@
 <template>
-  <transition name="fade-in-fwd">
 
   <div class="mt-0">
 
@@ -15,7 +14,6 @@
 
   </div>
 
-  </transition>
 </template>
 
 <script>
@@ -24,18 +22,19 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'AddPost',
+  props: ['id'],
 
   data() {
     return {
       post: {
         title: '',
-        text: ''
+        text: '',
       }
     }
   },
 
-  created() {
-    this.get()
+  async created() {
+    await this.get();
   },
 
   validations: {
@@ -71,7 +70,7 @@ export default {
     async get() {
       if (this.editMode) {
         try {
-          this.post = await Posts.get(this.$route.params.id);
+          this.post = await Posts.get(this.id);
         } catch(err) {
           console.log(err);
           reset();
@@ -101,11 +100,19 @@ export default {
 
   computed: {
     editMode() {
-      if (this.$route.params.id) {
+      if (this.id) {
         return true;
       }
 
       return false;
+    }
+  },
+
+  watch: {
+    id: function (curr, prev) {
+      if (curr === undefined) {
+        this.reset();
+      }
     }
   }
 }

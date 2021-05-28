@@ -20,10 +20,12 @@ const routes = [
   },
   {
     path: '/add',
+    props: true,
     component: () => import ('../components/AppAddPost.vue')
   },
   {
     path: '/edit/:id',
+    props: true,
     component: () => import ('../components/AppAddPost.vue')
   }
 ]

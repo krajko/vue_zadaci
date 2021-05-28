@@ -1,9 +1,9 @@
 <template>
-  <transition name="fade-in-top">
 
   <div class="mt-0">
+
     <ul class="list-unstyled d-flex flex-column justify-content-center align-items-center">
-      <li v-for="(post) in posts" :key="post.id" class="card col-10 col-lg-6 col-xl-5 mb-3 mx-2">
+      <li v-for="post in posts" :key="post.id" class="card col-10 col-lg-6 col-xl-5 mb-3 mx-2">
         <div class="card-body text-start pt-1">
             <div class="d-flex flex-row justify-content-between">
               <div class="col pt-3">
@@ -24,11 +24,17 @@
         </div>
       </li>
 
-      <li v-if="posts.length === 0">No posts to show.</li>
+      <li v-if="isLoading" class="mt-5">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </li>
+
+      <li v-if="!isLoading && !posts.length">No posts to show.</li>
     </ul>
+
   </div>
 
-  </transition>
 </template>
 
 <script>
@@ -39,7 +45,8 @@ export default {
 
   data() {
     return {
-      posts: []
+      posts: [],
+      isLoading: true
     }
   },
 
@@ -51,7 +58,7 @@ export default {
     async getPosts() {
       try {
         this.posts = await Posts.getAll();
-        console.log(this.posts);
+        this.isLoading = false;
       } catch(err) {
         console.log(err);
       }
