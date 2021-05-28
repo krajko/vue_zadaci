@@ -18,7 +18,8 @@
 
             <div class="d-flex flex-row justify-content-end align-items-end my-0">
               <p class="col self-align-start text-muted mb-0"><small> {{ post.createdAt | diffForHumans }} </small></p>
-              <p class="col self-align-start text-muted mb-0"><small> {{ post.comments.length }} Comments </small></p>
+              <p v-if="post.comments.length === 1" class="col self-align-start text-muted mb-0"><small> 1 Comment </small></p>
+              <p v-else class="col self-align-start text-muted mb-0"><small> {{ post.comments.length }} Comments </small></p>
               <router-link :to="`edit/${post.id}`" class="btn btn-sm btn-secondary col-sm-2 me-2">Edit</router-link>
               <router-link :to="`posts/${post.id}`" class="btn btn-sm btn-primary col-sm-3">View post</router-link>
             </div>
